@@ -1,4 +1,4 @@
-/*  Program for demonstrating incremention of characters in strings
+/*  Program for demonstrating increment of characters in strings
     Author: Yogesh
 */
 #include <iostream>
