@@ -1,4 +1,4 @@
-/* This Program dmonstrates how to convert time from 12 hrs format into 24 hrs format
+/* This Program demonstrates how to convert time from 12 hrs format into 24 hrs format
    Author:  Yogeshwaran R
 */
 #include<iostream>
