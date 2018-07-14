@@ -62,5 +62,5 @@ int main()
   else
   {
     cout<<"Invalid Input"<<endl;
-  }
+  } 
 }
