@@ -4,9 +4,10 @@ using namespace std;
 
 class ScopeTest
 {
-	/* Uncomment the below part and compile again */
-//	private:
-	//	int x=20;
+	/* Uncomment the below part and compile again 
+	 * Notice the 'redclaration' error encountered */
+	private:
+		int x=20;
 	public: 
 		int x=10;
 		ScopeTest()
