@@ -1,11 +1,12 @@
-/* This program demonstrates how the access specifier works */
+/* This program demonstrates how the access specifier works 
+ * Note: Compilation will be unsuccessful. 
+ *       Understand and try debugging. */
 #include<iostream>
 using namespace std;
 
 class ScopeTest
 {
-	/* Uncomment the below part and compile again 
-	 * Notice the 'redclaration' error encountered */
+	/* Notice the 'redclaration' error encountered */
 	private:
 		int x=20;
 	public: 
