@@ -19,5 +19,5 @@ main()
 		}
 	}
 
-	cout << "Welcome, "<<name<<endl;
+	cout << "Hello, "<<name<<endl;
 }
