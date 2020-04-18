@@ -16,4 +16,5 @@ int main()
 int welcome()
 {
 	cout << "Welcome" <<endl;
+	return 0;
 }
