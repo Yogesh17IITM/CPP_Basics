@@ -8,5 +8,5 @@ To compile : </br>
 For windows: </br>
 For Ubuntu: g++ [filename].cpp </br>
 To Run: </br>
-For windows: simply type "a" and press enter  </br>
+For windows: simply type "a" or "./a.exe" and press enter  </br>
 For Ubuntu: type "./a.out" and hit enter  </br>
