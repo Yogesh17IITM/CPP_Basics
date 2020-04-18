@@ -30,8 +30,7 @@ int main()
 	// Function call
 	welcome(strName);		
 		
-	// string * pStrName = &strName;			// Compilation Error! 
-												// To maintain Constantness of data
+	// string * pStrName = &strName;			// Compilation Error! to maintain Constantness of data
 	
 	// 1. Assigning data to pointer 
 	cout <<"case 1.1 :";
