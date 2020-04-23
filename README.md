@@ -14,3 +14,7 @@ For Ubuntu: type "./a.out" and hit enter  </br>
 ### Search Tips
 To search any topic or keyword in the files in the current directory: </br>
 Type (in your shell): grep -nr "[Keyword_to_search]" .
+
+### Editor 
+Use visual studio (VS) code
+To open code through Cmd terminal in VS: type "code [filename].cpp"
