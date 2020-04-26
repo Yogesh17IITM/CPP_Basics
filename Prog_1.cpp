@@ -2,7 +2,7 @@
 
 #include<iostream>
 using namespace std;
-main()
+int main()
 {
 	char name[20];
 	char *ptr;

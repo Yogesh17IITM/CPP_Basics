@@ -8,7 +8,7 @@ class ScopeTest
 {
 	/* Notice the 'redclaration' error encountered */
 	private:
-		int x=20;
+		//int x=20;
 	public: 
 		int x=10;
 		ScopeTest()
