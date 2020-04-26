@@ -1,23 +1,75 @@
-/* Converting lowercase into UPPERCASE */
+/* 
+Objective:
+	To demonstrate default parameters and function overloading
 
+Example:
+	Converting lowercase into UPPERCASE
+
+Key Topics:
+	1) Function - calling with Default parameter(s)
+*/
+
+// Std Libraries
 #include<iostream>
+
+// The 'Using' directives
 using namespace std;
+
+// Function Prototype (with default formal parameter)
+void ConvertLowerIntoUpperCase(char * ipChar = NULL);
+int add(int a, int b = 10, int c = 20);		// Here 'b' and 'c' are Default parameters
+// Note: 
+// Default parametering happens from right to left.
+// So, it is always recommended to keep default params at the right and non-default param at the left
+
+/* Main Program */
 int main()
 {
 	char name[20];
 	char *ptr;
-
-	cout <<"Enter your name (in lower case)"<<endl;
+		
+	cout<<"Enter your name: "<<endl;
 	cin >> name;
-	ptr = name; 	// Passing address of first element
+	ptr = name;
 
-	for(;(*ptr!='\0');ptr++)	
+	// Display Name
+	ConvertLowerIntoUpperCase(ptr);			// ptr = actual parameter	
+	if(ptr)
 	{
-		if(*ptr>='a' && *ptr<='z')
+		/*Note: Here ptr is NOT null. That is, actual parameter is not affected*/
+		cout <<"Hello "<<ptr<<endl;	
+	}
+	else
+	{
+		cout<<"Invalid Input !!!"<<endl;
+	}	
+
+	// Demonstrating the usage of Default parameter
+	cout <<"1: Sum is "<<add(100)<<endl;
+	cout <<"2: Sum is "<<add(100, 200)<<endl;
+	cout <<"3: Sum is "<<add(100, 200, 300)<<endl;
+}
+
+
+void ConvertLowerIntoUpperCase(char * ipChar)
+{
+	if (ipChar)
+	{
+		for(;(*ipChar!='\0');ipChar++)	
 		{
-			*ptr = *ptr - 32;		
+			if(*ipChar>='a' && *ipChar<='z')
+			{
+				*ipChar = *ipChar - 32;		// Modifying pointer value
+			}
 		}
 	}
 
-	cout << "Hello, "<<name<<endl;
+	// Note:
+	// 1) Changing the poiner 'ipChar' (formal parameter) to NULL will NOT affect the actual parameter 'ptr'
+	// 2) But, modifying the pointer value will affect the actual parameter
+	ipChar = NULL;
+
+	// Note: To modify 'ipChar', you may use double pointer!
 }
+
+int add(int a, int b, int c) {return (a+b+c);}
