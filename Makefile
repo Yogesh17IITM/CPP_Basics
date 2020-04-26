@@ -25,7 +25,7 @@ endif
 
 default: run
 
-run: checksystem checkname clean $(NAME).o 
+run: checksystem checkname $(NAME).o 
 	@($(CXX) $(NAME).o -o run)
 
 edit: checkname
