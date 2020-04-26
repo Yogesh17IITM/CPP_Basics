@@ -50,7 +50,7 @@ int main()
 	cout <<"3: Sum is "<<add(100, 200, 300)<<endl;
 }
 
-
+/* Function definitions */
 void ConvertLowerIntoUpperCase(char * ipChar)
 {
 	if (ipChar)
