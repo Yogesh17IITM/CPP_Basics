@@ -18,9 +18,16 @@ using namespace std;
 // Function Prototype (with default formal parameter)
 void ConvertLowerIntoUpperCase(char * ipChar = NULL);
 int add(int a, int b = 10, int c = 20);		// Here 'b' and 'c' are Default parameters
-// Note: 
-// Default parametering happens from right to left.
-// So, it is always recommended to keep default params at the right and non-default param at the left
+/* Note: 
+	1) Default parametering happens from right to left.
+	   So, it is always recommended to keep default params at the right and non-default param at the left
+	2) This function can also be created using funciton overloading
+		(a) add(int)
+		(b) add(int, int)
+		(c) add(int, int, int)
+		But here, instead of creating three functions, creating a function with default args
+		will be efficient
+*/
 
 /* Main Program */
 int main()
