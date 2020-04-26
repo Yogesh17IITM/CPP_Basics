@@ -25,7 +25,7 @@ endif
 
 default: run
 
-run: checksystem checkname $(NAME).o 
+run: checksystem checkname clean $(NAME).o 
 	@($(CXX) $(NAME).o -o run)
 
 edit: checkname
@@ -36,8 +36,7 @@ ifneq ($(NAME), dummy)
 endif
 
 clean:
-	@rm *.o
-	@rm *.exe
+	-@(rm *.o 2>/dev/null; rm *.exe 2>/dev/null)
 	@echo
 	@echo "All the objects are cleared !!!";echo;
 
