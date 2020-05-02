@@ -22,12 +22,13 @@ endif
 %.o : %.cpp	
 	@($(CXX) $(CXXFLAGS) $< -o $@)
 	@echo $< "Compiled Successfully..."
-	@echo "Type ./run.exe to execute the application"
+	@echo "type 'make run' to execute the application"
 
-default: run
-
-run: checksystem checkname clean $(NAME).o 
+default: checksystem checkname clean $(NAME).o 
 	@($(CXX) $(NAME).o -o run)
+
+run:
+	@(./run.exe)
 
 edit: checkname
 ifneq ($(NAME), dummy)
