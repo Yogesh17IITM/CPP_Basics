@@ -2,7 +2,8 @@
 KNOWN_SYSTEM=no
 
 ## SPECIFY THE NAME OF THE FILE TO COMPILE
-NAME=dummy
+FILENAME=dummy
+NAME=$(shell echo $(FILENAME) | cut -f1 -d '.')
 
 ## SPECIFY THE TYPE OF COMPILER: (g++)
 SYSTEM=g++
@@ -53,7 +54,9 @@ endif
 checkname:
 ifeq ($(NAME), dummy)
 	@echo "Specify name of the source file to compile/edit."
-	@echo "Eg: To compile: type 'make NAME=Prog_1' in command prompt"	
-	@echo "Eg: To edit: type 'make edit NAME=Prog_1' in command prompt"	
+	@echo "Eg: To compile: type 'make FILENAME=Prog_1' (or) 'make FILENAME=Prog_1.cpp' in command prompt"	
+	@echo "Eg: To edit: type 'make edit FILENAME=Prog_1' (or) 'make edit FILENAME=Prog_1.cpp'  in command prompt"	
 	@echo ""
+else	
+	@echo "$(NAME)"
 endif
