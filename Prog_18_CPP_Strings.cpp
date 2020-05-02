@@ -86,8 +86,7 @@ vector<string> FindMostPopularKeywords(vector<string> & iKeywords, vector<string
         }
     }
 
-    // Now sort out the Most popular word
-    //priority_queue<pair<int, string>,vector<pair<int, string>>> sortedKeyVal;
+    // Now sort out the Most popular word    
     priority_queue<pair<int, string>> sortedKeyVal;
     for(auto iKeyVal:mapKeyVal)
         sortedKeyVal.push(make_pair(iKeyVal.second, iKeyVal.first));
