@@ -1,82 +1,89 @@
 /* 
 Objective:
-	To demonstrate default parameters and function overloading
+	To demonstrate advantage of default parameter over function overloading
 
 Example:
-	Converting lowercase into UPPERCASE
+	Sum of given numbers
 
 Key Topics:
-	1) Function - calling with Default parameter(s)
+	1) Function overloading
+	2) Default parameter
+	3) Manifest constants
 */
 
 // Std Libraries
 #include<iostream>
+#include<string>
 
 // The 'Using' directives
 using namespace std;
 
-// Function Prototype (with default formal parameter)
-void ConvertLowerIntoUpperCase(char * ipChar = NULL);
-int add(int a, int b = 10, int c = 20);		// Here 'b' and 'c' are Default parameters
-/* Note: 
+// Manifest constants
+#define ENTER(Message) cout<<"[ENTER] "<<Message<<endl
+#define EXIT(Message) cout<<"[EXIT] " <<Message<<endl
+
+// Function Prototypes 
+// 1) with default parameters
+int add(int a, 			// Normal parameter
+        int b = 10, 	// Default parameter
+		int c = 20);	// Default parameter
+
+// 2) without default parameter 
+int area(int a);						
+int area(int iLength, int iBreadth);	// function overloading (based on #args)
+
+/* 
+Note: 
 	1) Default parametering happens from right to left.
-	   So, it is always recommended to keep default params at the right and non-default param at the left
-	2) This function can also be created using funciton overloading
+	   It is always recommended to keep default params at the right and non-default param at the left.
+	   So, that it will take default value automatically if you don't specify it.
+	2) This function can also be created using function overloading
 		(a) add(int)
 		(b) add(int, int)
 		(c) add(int, int, int)
-		But here, instead of creating three functions, creating a function with default args
-		will be efficient
+		But here, instead of creating three functions with three different args, 
+		creating a function with default args will be efficient
+	3) Function cannot be overloaded based on return type alone.
 */
 
 /* Main Program */
 int main()
 {
-	char name[20];
-	char *ptr;
-		
+	string name;		
 	cout<<"Enter your name: "<<endl;
 	cin >> name;
-	ptr = name;
 
-	// Display Name
-	ConvertLowerIntoUpperCase(ptr);			// ptr = actual parameter	
-	if(ptr)
+	// Display Name (in Uppercase)
+	if(0 < name.size())
 	{
-		/*Note: Here ptr is NOT null. That is, actual parameter is not affected*/
-		cout <<"Hello "<<ptr<<endl;	
+		for (auto &iStr : name)
+			iStr = ::toupper(iStr);
+		cout <<"Hello "<<name<<"\n"<<endl;	
 	}
-	else
-	{
-		cout<<"Invalid Input !!!"<<endl;
-	}	
-
+	
 	// Demonstrating the usage of Default parameter
 	cout <<"1: Sum is "<<add(100)<<endl;
 	cout <<"2: Sum is "<<add(100, 200)<<endl;
 	cout <<"3: Sum is "<<add(100, 200, 300)<<endl;
+	cout <<"\n4: Area is \n"<<area(5)<<endl;
+	cout <<"\n5: Area is \n"<<area(5, 6)<<endl;
+
+	return 0;
 }
 
 /* Function definitions */
-void ConvertLowerIntoUpperCase(char * ipChar)
+int add(int a, int b, int c) { return (a + b + c);}
+
+int area(int a)
 {
-	if (ipChar)
-	{
-		for(;(*ipChar!='\0');ipChar++)	
-		{
-			if(*ipChar>='a' && *ipChar<='z')
-			{
-				*ipChar = *ipChar - 32;		// Modifying pointer value
-			}
-		}
-	}
-
-	// Note:
-	// 1) Changing the poiner 'ipChar' (formal parameter) to NULL will NOT affect the actual parameter 'ptr'
-	// 2) But, modifying the pointer value will affect the actual parameter
-	ipChar = NULL;
-
-	// Note: To modify 'ipChar', you may use double pointer!
+	ENTER("area with one param");	
+	EXIT("area with one param");
+	return (a*a);
 }
 
-int add(int a, int b, int c) {return (a+b+c);}
+int area(int iLength, int iBreadth)
+{
+	ENTER("area with two param");	
+	EXIT("area with two param");
+	return iLength * iBreadth;
+}
