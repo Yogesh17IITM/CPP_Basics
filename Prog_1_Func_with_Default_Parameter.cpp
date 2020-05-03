@@ -66,10 +66,8 @@ int main()
     cout << "1: Sum is " << add(100) << endl;
     cout << "2: Sum is " << add(100, 200) << endl;
     cout << "3: Sum is " << add(100, 200, 300) << endl;
-    cout << "\n4: Area is \n"
-         << area(5) << endl;
-    cout << "\n5: Area is \n"
-         << area(5, 6) << endl;
+    cout << "\n4: Area is \n" << area(5) << endl;
+    cout << "\n5: Area is \n" << area(5, 6) << endl;
 
     return 0;
 }
