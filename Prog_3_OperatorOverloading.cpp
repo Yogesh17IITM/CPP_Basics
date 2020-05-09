@@ -60,6 +60,7 @@ public:
     }    
     T &operator*() { return *_ptr; }
     T *operator->() { return _ptr; }
+    operator bool() const { return (_ptr) ? true : false; }
 };
 
 class MyClass
@@ -89,22 +90,27 @@ void Greeting(string iName, const int & iAge)
 
     // case 1:
     SmartPtr<MyClass> spMyClass1(new MyClass);      // Initialized by Constructor 
-    spMyClass1->SetName(iName);
-    spMyClass1->SetAge(iAge);
-    cout << "\nHello " << spMyClass1->GetName() << "! You are " << spMyClass1->GetAge() << " now!\n" << endl;
+    if(spMyClass1)      // operator overloading 'bool()'
+    {
+        spMyClass1->SetName(iName);
+        spMyClass1->SetAge(iAge);
+        cout << "\nHello " << spMyClass1->GetName() << "! You are " << spMyClass1->GetAge() << " now!\n"<< endl;
+    }
 
     // convert name to lower case
     for(auto & iStr:iName)
         iStr = ::tolower(iStr);     
 
     // case 2:
-    SmartPtr<MyClass> spMyClass2;  
+    SmartPtr<MyClass> spMyClass2;
     spMyClass2 = new MyClass;       // Initialized by '=' overload operator
     // spMyClass2 = spMyClass1;     // Also, works fine (requires deep copying)
-    spMyClass2->SetName(iName);
-    spMyClass2->SetAge(iAge);
-    cout << "\nHello " << spMyClass2->GetName() << "! You are " << spMyClass2->GetAge() << " now!\n" << endl;
-
+    if(spMyClass2)
+    {
+        spMyClass2->SetName(iName);
+        spMyClass2->SetAge(iAge);
+        cout << "\nHello " << spMyClass2->GetName() << "! You are " << spMyClass2->GetAge() << " now!\n"<< endl;
+    }
     // Note: SmartPtr will be destructed automatically once its scope ends.
 }
 

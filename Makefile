@@ -37,6 +37,9 @@ ifneq ($(NAME), dummy)
 	@echo "FILE = '$(NAME).cpp' HAS OPENED SUCESSFULLY FOR EDITING"; echo;
 endif
 
+diff:
+	@(git difftool)
+
 clean:
 	-@(rm *.o 2>/dev/null; rm *.exe 2>/dev/null)
 	@echo
