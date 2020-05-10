@@ -86,6 +86,9 @@ void Greeting(string iName, const int & iAge)
     ^^^^^^^^^^^^^^^^^^^^^^^^^
     1) operator 'new' - to allocate memory
     2) operator 'delete' - to deallocate memory
+
+    Note: 
+    'new' and 'delete' are operators whereas 'malloc' and 'calloc' in 'c programming' are functions.
     */
 
     // case 1:
