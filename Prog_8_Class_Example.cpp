@@ -41,14 +41,14 @@ class CalculateArea
 	double _radius = 0.0;	
 	
 	public:
-	/* Class members as Functions */
+        /* Class members as Functions */
 
-		// Set Methods
-		void SetRadius(const double &iRadius) { _radius = iRadius; }
+        // Set Methods
+        void SetRadius(const double &iRadius) { _radius = iRadius; }
 
-		// Get Methods
-		double GetArea() const { return CONST_PI * _radius * _radius; }
-		double GetCircumference() const { return 2 * CONST_PI * _radius; }
+        // Get Methods
+        double GetArea() const { return CONST_PI * _radius * _radius; }
+        double GetCircumference() const { return 2 * CONST_PI * _radius; }
 };
 
 int main()
