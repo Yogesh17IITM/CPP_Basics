@@ -9,6 +9,7 @@ Key Topics:
 	1) C++ Class - Object creation and accessing members
     2) Constructor and Destructor
 	3) Usage of Manifest constants (#defines)
+    4) Access specifiers (public , private (default))
 */
 
 // Std libraries
@@ -23,7 +24,9 @@ using namespace std;
 
 // Class definitions
 class Geometry2D
-{	            
+{	           
+    // Members are private by default (accessed only by the methods of this class.)
+    // Note: In Structure, members are public by default.
         double _Area;
         double _Circum;
 	public:
