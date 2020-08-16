@@ -44,7 +44,8 @@ public:
     explicit SmartPtr(T *ip = NULL)     // 'explicit' keyword used to avoid any implicit conversion
     { 
         cout <<"SmartPtr constructor() called"<<endl;
-        _ptr = ip; 
+        if (NULL != ip)
+            _ptr = ip; 
     }
     virtual ~SmartPtr() 
     {
@@ -55,7 +56,8 @@ public:
     SmartPtr& operator=(T *ip)
     {
         cout <<"Overloading operator() called"<<endl;
-        this->_ptr = ip;
+        if(NULL != ip)
+            this->_ptr = ip;
         return *this;        
     }    
     T &operator*() { return *_ptr; }
