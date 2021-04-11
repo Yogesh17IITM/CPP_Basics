@@ -31,5 +31,5 @@ int main()
     }
     cout << "Output 2: " << input << endl;
 
-    return 0;
+    return 0;    
 }
