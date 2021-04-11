@@ -72,7 +72,7 @@ public:
     }
 
     ~UsrDefinedString()
-    {
+    {   
         free(_ch);
     }
 
