@@ -1,29 +1,45 @@
+/*
+    Write a function to check if the given string is palindrome or not?
+*/
+
 #include<iostream>
 using namespace std;
+
+#define PRINT(Msg) cout<<Msg<<endl
 
 bool IsPalindrome(const string& iStr)
 {
     bool bIsPalindrome = true;
-    int i = 0;
-    int j = iStr.length()-1;
-    while ((i != j) &&
-        (iStr[i++] != iStr[j--]))
+
+    int idx = 0;
+    int jdx = iStr.length()-1;
+
+    while (idx <= jdx)
     {
-        bIsPalindrome = false;
-        break;
-    }
+        if (iStr[idx++] != iStr[jdx--])
+        {
+            bIsPalindrome = false;
+            break;
+        }
+    }    
+
     return bIsPalindrome;
 }
 
 int main()
 {
-    string str1 = { "abc" };
-    string str2 = "abba";
-    string str3 = "abcba";
+    // Lambda expression
+    auto CheckIfPalindrome = [](string iStr) {
+        IsPalindrome(iStr) ? PRINT("YES") : PRINT("NO");
+    };
 
-    cout << str1 << " " << (IsPalindrome(str1) ? " Is Palindrome" : "Is Not palindrome") << endl;
-    cout << str2 << " " << (IsPalindrome(str2) ? " Is Palindrome" : "Is Not palindrome") << endl;
-    cout << str3 << " " << (IsPalindrome(str3) ? " Is Palindrome" : "Is Not palindrome") << endl;
-
-    return 0;
+    // Check if Palindrome?
+    CheckIfPalindrome("Hello");
+    CheckIfPalindrome("abc");
+    CheckIfPalindrome("aba");
+    CheckIfPalindrome("abccba");
+    CheckIfPalindrome("abcdba");
+    CheckIfPalindrome("abcdcba");
+    
+	return 0;
 }
