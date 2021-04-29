@@ -1,44 +1,38 @@
+/*
+    Write a function to reverse the words
+    Input : "Hai Hello How are you?"
+    Output: "you? are How Hello Hai"
+*/
+
 #include<iostream>
-#include<sstream>
-#include<algorithm>
 using namespace std;
 
-string ReverseString(const string& iString)
+string ReverseString(string iString)
 {
-    string oRevStr = iString;
+    reverse(iString.begin(), iString.end());    
+    iString.append(" ");    
+       
+    auto StartPos = 0;
+    auto EndPos = 0;
 
-    // reversed all characters
-    reverse(oRevStr.begin(), oRevStr.end());
-    
-    int prevIdx = 0;
-    int nextIdx = 0;
-    for (int idx = 0; idx < oRevStr.length(); idx++)
+    // If string starts with " "
+    if (iString[0] == ' ')
+        StartPos++;
+
+    while ((EndPos = iString.find(" ", StartPos)) &&
+        (EndPos != string::npos))
     {
-        if (oRevStr[idx] == ' ')
-        {
-            nextIdx = idx;
-            reverse(oRevStr.begin() + prevIdx, oRevStr.begin() + nextIdx);            
-            while (oRevStr[++idx] == ' ');
-            {
-                prevIdx = idx;                
-            } 
-        }
-
-        // Treat for last word
-        if (idx == oRevStr.length() - 1)
-        {
-            reverse(oRevStr.begin() + prevIdx, oRevStr.end());         
-            break;
-        }
+        reverse(iString.begin() + StartPos, iString.begin() + EndPos);
+        StartPos = EndPos+1;
     }
-    return oRevStr;
+    iString.erase(iString.end()-1, iString.end());
+    
+    return iString;
 }
 
 int main()
 {
-    string str = " Hai  Hello ?";
-    cout << "[" << str <<"]"<<endl;
-
-    cout << "[" <<ReverseString(str)<<"]" << endl;
-    return 0;
+    string str = "Hai Hello How are you?";
+    cout << "["<<ReverseString(str) << "]" << endl;
+	return 0;
 }
