@@ -1,44 +1,67 @@
-#include<iostream>
-#include<unordered_map>
-#include<algorithm>
+/*
+    Topic: Find first unique character in a given strings
 
+    Input1 : "Hello World"
+    Input2 : " How are you?"
+    Todo: Concatenate two strings and find the first non-repeating char
+    
+    Output: d
+*/
+
+#include<iostream>
+#include<map>
+#include<vector>
 using namespace std;
 
-int FindFirstUniqChar(const string& iStr)
+char FirstUniqChar(string str1, string str2)
 {
-    int oRet = -1;    
+    vector<char> chArr;
 
-    unordered_map<char, int> uMap;
-    for (auto& iCh : iStr)
-        uMap[iCh]++;
-
-    vector<char> ListOfUniqChar;
-    for (auto& iMap : uMap)
-    { 
-        if (iMap.second == 1)
-        {
-            ListOfUniqChar.push_back(iMap.first);
-        }
-    }
-
-    for (int idx=0; idx<iStr.length(); idx++)
+    // Lambda Expression for push into vector
+    auto PushInto = [&](string iStr)
     {
-        if (find(ListOfUniqChar.begin(), ListOfUniqChar.end(), iStr[idx]) != ListOfUniqChar.end())
+        for (auto& iCh : iStr)
         {
-            oRet = idx;
+            // convert all char into either upper or lower case
+            iCh = ::tolower(iCh);
+            chArr.push_back(iCh);
+        }
+    };
+
+    PushInto(str1);
+    PushInto(str2);
+
+    // Use map to count the repetition of a char
+    map<char, int> chMap;       // Elements stored are sorted by default.
+    for (auto& iCh : chArr)
+        chMap[iCh]++;
+
+    // Store only unique Char
+    vector<char> UniqChar;
+    for (auto& iChMap : chMap)
+        if (1 == iChMap.second)
+            UniqChar.push_back(iChMap.first);
+
+    // Find the first uniq char from the given string
+    char FirstUniqChar = ' ';
+    for (auto& iCh : chArr)
+    {
+        auto pos = find(UniqChar.begin(), UniqChar.end(), iCh);
+        if (pos != UniqChar.end())
+        {
+            FirstUniqChar = iCh;
             break;
         }
     }
-
-    return oRet;
+    return FirstUniqChar;
 }
-
 
 int main()
 {
-    string str = "GeekForGeeks";
-    cout << FindFirstUniqChar(str) << endl;   
+    string str1 = "Hello World";
+    string str2 = " How are you?";
 
-    return 0;
+    cout << FirstUniqChar(str1, str2) << endl;
+
+	return 0;
 }
-
