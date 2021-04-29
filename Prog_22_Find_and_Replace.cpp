@@ -1,35 +1,45 @@
+/*
+    Topic: Find, replace and erase
+
+    Input : "abc abc def"
+    To Do : 
+        1) Find "bc" and replace with "???" and print the result
+        2) Find "???" and erase it
+
+    Output:
+        1) a??? a??? def
+        2) a a def
+*/
+
 #include<iostream>
 using namespace std;
 
 int main()
 {
-    string input = "abc abc def";
-    cout << "Input: " << input << endl;
+    string str = "abc abc def";
 
-    // Topic: Find and replace
-    // Problem: find 'bc' and replace with ???
-    string strToReplace = "bc";
-    string strReplaceBy = "???";
+    string strToFind = "bc";
+    string strToReplace = "???";
 
+    // Find and replace
     auto pos = 0;
-    while ((pos = input.find(strToReplace, pos)) &&
-        pos != string::npos)
-    {
-        input.replace(pos, strToReplace.length(), strReplaceBy);
-        pos += strReplaceBy.length() + 1;
+    while ((pos = str.find(strToFind, pos)) &&
+           (pos != string::npos))
+    {   
+        str.replace(pos, strToFind.length(), strToReplace);
+        pos += strToReplace.length() + 1;
     }
-    cout << "Output 1: " << input << endl;
+    cout << str << endl;
 
-    // Topic: Find and erase
-    // Problem: find '???' and erase it
-    string strToErase = "???";
-    auto posToErase = 0;
-    while ((posToErase = input.find(strToErase, posToErase)) &&
-        posToErase != string::npos)
+    // Find and erase
+    pos = 0;
+    strToFind = "???";
+    while ((pos = str.find(strToFind, pos)) &&
+        (pos != string::npos))
     {
-        input.erase(posToErase, strToErase.length());
+        str.erase(pos, strToFind.length());        
     }
-    cout << "Output 2: " << input << endl;
+    cout << str << endl;
 
-    return 0;    
+	return 0;
 }
