@@ -2,7 +2,7 @@
 Objective: Practice Sets (C++ Strings)
 
 Question:
-    Given a list of reviews, a list of keywords and an integer k. 
+    Given a list of reviews, a list of keywords and an integer k.
     Find the most popular k keywords in order of most to least frequently mentioned.
     The comparison of strings is case-insensitive.
     Multiple occurances of a keyword in a review should be considered as a single mention.
@@ -18,84 +18,99 @@ Sample Input and Output:
         "Best services provided by anacell, everyone should use anacell",]
 
     Output:
-        ["anacell", "betacellular"]
+        ["anacell", "betacellular", ]
 
     Explanation:
-        "anacell" is occuring in 2 different reviews and "betacellular" is only occuring in 1 review.
+        "anacell" is occuring in 3 different reviews and "betacellular" is only occuring in 1 review.
+        Since k=2, first 2 popular keywords printed. 
 */
 
-// Std Libraries
 #include<iostream>
-#include<vector>
-#include<string>
 #include<sstream>
-#include<unordered_set>
-#include<unordered_map>
-#include<queue>
-#include<utility>
-
-// Using directive
+#include<vector>
+#include<map>
+#include<algorithm>
 using namespace std;
 
-// Function Prototype
-vector<string> FindMostPopularKeywords(vector<string> & iKeywords, vector<string> & iReviews, int & iPopular);
-
-/* Main Program */
-int main()
+bool Compare(pair<string, int> & iKeyA, pair<string, int>& iKeyB)
 {
-    // Inputs
-    int nPopular = 2; // Top 'n' popular words
-    vector<string> KeyWords{"anacell", "cetracular", "betacellular"};
-    vector<string> Reviews{"Anacell provides the best services in the city", "betacellular has awesome services",
-    "Best services provided by anacell, everyone should use anacell",};
-
-    vector<string> PopularKeywords;
-    PopularKeywords = FindMostPopularKeywords(KeyWords, Reviews, nPopular);
-
-    for(auto iPopularKey:PopularKeywords)
-        cout<<iPopularKey<<" ";
-
-    return 0;
+    bool oRes = false;
+    if (iKeyA.second > iKeyB.second)
+    {
+        oRes = true;
+    }
+    return oRes;
 }
 
-/* Function definitions */
-vector<string> FindMostPopularKeywords(vector<string> & iKeywords, vector<string> & iReviews, int & iPopular)
+vector<string> FindPopularKeyWords(vector<string> iStrReview,
+                                   vector<string> iKeyWords, int k)
 {
-    vector<string> oPopularKeywords;
+    vector<string> oStrKeyWords;
 
-    unordered_set<string> hashkey;
-    for(auto curKey:iKeywords)
-        hashkey.insert(curKey);
-
-    unordered_map<string, int> mapKeyVal;
-    for(auto curSentence:iReviews)
+    // 1) Convert all characters into lower case.
+    //    replace all special characters by space.
+    for (auto& iStr : iStrReview)
     {
-        // convert all sentence to lowercase
-        for (auto &alias:curSentence)
-            alias = ::tolower(alias);
-
-        // Stream each word from sentence
-        stringstream sstream(curSentence);
-        string Word;
-        while(getline(sstream, Word, ' '))
+        for (auto& iCh : iStr)
         {
-            if(hashkey.find(Word) != hashkey.end())
-            {
-                mapKeyVal[Word]++;
-            }
+            iCh = ::tolower(iCh);
         }
     }
 
-    // Now sort out the Most popular word    
-    priority_queue<pair<int, string>> sortedKeyVal;
-    for(auto iKeyVal:mapKeyVal)
-        sortedKeyVal.push(make_pair(iKeyVal.second, iKeyVal.first));
+    map<string, int> mapKeyVal;
 
-    while(!sortedKeyVal.empty())    
-    {
-        oPopularKeywords.push_back(sortedKeyVal.top().second);
-        sortedKeyVal.pop();
+    // 2) Find the popular Key words
+    for (auto& iStr : iStrReview)    
+    {        
+        for (auto& iKey : iKeyWords)
+        {
+            auto pos = 0;
+
+            // Check if starting word is Keyword
+            if (iKey == iStr.substr(0, iKey.length()))
+            {                
+                mapKeyVal[iKey]++;
+                pos = iKey.length() + 1;
+            }                
+
+            // Check the popularity of keywords
+            while ((pos = iStr.find(iKey, pos)) &&
+                   (pos != string::npos) )
+            {
+                mapKeyVal[iKey]++;
+                pos += iKey.length() + 1;
+            }            
+        }
     }
+     
+    // 3) Sort KeyWords based on the popularity level
+    vector<pair<string, int>> KeyVal;
+    for (auto& iKey : mapKeyVal)
+        KeyVal.push_back(make_pair(iKey.first, iKey.second));
+    sort(KeyVal.begin(), KeyVal.end(), Compare);
 
-    return oPopularKeywords;
+    // 4) Extract top 'k' popular words
+    for (int idx = 0; ((idx < KeyVal.size()) && (idx < k)); idx++)    
+        oStrKeyWords.push_back(KeyVal[idx].first);    
+
+    return oStrKeyWords;
+}
+
+int main()
+{
+    vector<string> strReview = { "Anacell provides the best services in the city",
+                                 "betacellular has awesome services",
+                                 "Best services provided by anacell, everyone should use anacell" };
+
+    vector<string> strKeyWords = { "anacell", "cetracular", "betacellular" };
+    int k = 2;
+
+    vector<string> strPopularKeyWords = FindPopularKeyWords(strReview, strKeyWords, k);
+
+    cout << "[";
+    for (auto& iKeyWords : strPopularKeyWords)
+        cout <<"\""<< iKeyWords << "\", ";
+    cout << "]" << endl;
+
+    return 0;
 }
