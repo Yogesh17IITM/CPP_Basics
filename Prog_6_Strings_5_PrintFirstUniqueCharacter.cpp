@@ -6,6 +6,9 @@
     Todo: Concatenate two strings and find the first non-repeating char
     
     Output: d
+    Explanation: 
+        Unique characters are: d, a, y, u
+        First Uniq Charac: d
 */
 
 #include<iostream>

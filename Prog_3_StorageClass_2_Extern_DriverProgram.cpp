@@ -7,7 +7,7 @@
 #include<iostream>
 
 /* Global Declaration*/
-int count=0;			// Variable declaration
+int count=0;			    // Variable declaration
 extern void DispCount();	// Function declarataion/prototype
 
 /* Main function */

@@ -1,6 +1,6 @@
 /* 
 Objective: 
-	To Demonstrate C++ Class creation
+	To Demonstrate C++ Class Encapsulation (Binding data with member)
 
 Example:
 	Calculating area and circumference of circle

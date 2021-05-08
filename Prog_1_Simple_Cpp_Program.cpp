@@ -1,9 +1,8 @@
-/* Function Example */
+/* Simple C++ Program */
 
 /* Program for converting 12 hrs format into 24 hrs format 
    Input	: Time in HH:MM AM/PM
-   Output	: Equivalent time in 24 hrs format
-   Remarks	: Try using online/updated compiler (Here its NOT working)
+   Output	: Equivalent time in 24 hrs format   
 */
 #include<iostream>
 #include<string>
@@ -50,8 +49,8 @@ int main()
 	
 	for(i=2;i<5;i++)
 	{
-        	cout<<time[i];    
-    	}
+       	cout<<time[i];    
+    }
 	cout<<" hrs"<<endl;    
 	return 0;
 }

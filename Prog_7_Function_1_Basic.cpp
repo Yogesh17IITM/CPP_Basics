@@ -2,13 +2,15 @@
 
 /* Program for finding factorial 
 
-   Input	: Type a number for finding Factorial
+   Input	    : Type a number for finding Factorial
    Exp. output	: Factorial of that given no.
 */
 
 #include<iostream>
 #include<exception>
 using namespace std;
+
+// Function Prototype
 int fact(int x);
 
 int main()
@@ -22,6 +24,7 @@ int main()
 	return 0;
 }
 
+// Function Definition
 int fact(int x)
 {
 	int i=1;

@@ -26,8 +26,8 @@ int main()
 {
 	/*
 	CV-qualifers - 	"const" and "volatile"
-	1) const - variable can be set only at initialization and cannot be changed further
-	2) volatile - Value will be changed everytime when it is used.
+	    1) const - variable can be set only at initialization and cannot be changed further
+	    2) volatile - Value will be changed everytime when it is used.
 	*/
 	const string strName = "Yogesh";
 	string strUser = "Default";

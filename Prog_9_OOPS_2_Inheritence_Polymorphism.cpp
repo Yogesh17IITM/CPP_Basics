@@ -14,7 +14,7 @@ class parent
 			cout<<count<<" Parent constructor "<<stCount<<endl;
 		}
 
-		void Greet()
+		virtual void Greet()
 		{
 			cout << "Parent" <<endl;
 		}
@@ -23,7 +23,7 @@ class parent
 class first : public parent
 {
 	public:
-		void Greet()
+		void Greet() override
 		{
 			cout <<"first "<<endl;
 		}
@@ -32,7 +32,7 @@ class first : public parent
 class second : private parent
 {
 	public:
-		void Greet()
+		void Greet() override
 		{
 			cout <<"second "<<endl;
 		}
