@@ -1,49 +1,52 @@
-/*  
-    Program for demonstrating increment of characters in strings
+/*
+Ceaser Cipher - Encryption Technique 
 
-    Input: Sentence, incremental index
-    Output: Sentence with each characted incremented by given index.
-    
-    Author: Yogesh
+Description:
+    Each letter of a given text is replaced by a letter some fixed number 
+    of positions down the alphabet. 
+
+For example,
+    With a shift of 1, A would be replaced by B, B would become C, and so on.
+
+Input  : ABC DEF1
+Output : XYZ ABC1
 */
-#include <iostream>
-#include <string>
-using namespace std;
-int main ()
-{
-  string sentence;
-  int h, hnew;
-  cout<<"Type any sentence/paragraph (without punctuations): "<<endl;
-  cout<<"Note: Do not press the key 'Enter' until you finish the paragraph"<<endl;
-  getline(cin,sentence);
-  cout<<"\n Enter the incremental index:"<<endl;
-  cin>>h;
-  cout<<"Your sentence/paragraph is: \n "<<sentence<<"\n"<<endl;
 
-  for(int i=0;i<sentence.length();i++)
-  {
-    if(sentence[i]!=' ')
+
+#include<iostream>
+using namespace std;
+
+string DisplayEncryptedMsg(string iString, int iShiftIdx)
+{
+    string oEncryptedString = iString;
+    if (0 == iShiftIdx)    
+        return oEncryptedString;
+    
+    for(auto & iCh: oEncryptedString)
     {
-      if(isalpha(sentence[i]) || isdigit(sentence[i]))
-      {
-        sentence[i] = sentence[i] + h;
-        if(sentence[i]>'z' && islower(sentence[i]-h))
+        if (::isalpha(iCh))
         {
-          hnew = (sentence[i]-'z')-1;
-          sentence[i] = 'a'+hnew;
+            int chStartIdx = 65;    // 'A' --> 65
+            if (::islower(iCh))
+            {
+                // Encrypt Uppercase                
+                chStartIdx = 97; // 'a' --> 97                
+            }
+            
+            // Encrypt Message
+            iCh = char(int(iCh - chStartIdx + iShiftIdx) % 26 + chStartIdx);
         }
-        else if (sentence[i]>'Z' && isupper(sentence[i]-h))
+        else
         {
-          hnew = (sentence[i]-'Z')-1;
-          sentence[i] = 'A'+hnew;
+            continue;
         }
-      }
-      else
-      {
-        cout<<"ERROR: INVALID INPUT"<<endl;
-        exit(0);
-      }
     }
-  }
-  cout <<sentence<<endl;
+    return oEncryptedString;
+}
+
+int main()
+{
+    string str = "ABC DEF1";    
+    cout << DisplayEncryptedMsg(str, 23);
+	return 0;
 }
