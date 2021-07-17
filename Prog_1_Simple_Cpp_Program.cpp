@@ -4,54 +4,35 @@
    Input	: Time in HH:MM AM/PM
    Output	: Equivalent time in 24 hrs format   
 */
+
 #include<iostream>
 #include<string>
 using namespace std;
-
 int main()
 {
-	string time;
-	int hr=1000;
-	int i=1000;
+	string strTime = "12:20AM";	
 	
-	cout<<"Enter the time in HH:MM(AM/PM) format. Eg.12:20PM"<<endl;
-	cin>>time;
-    	hr = std::stoi(time); 
-    
-	if(time.compare(5,6,"AM") == 0)
-	{
-		if(hr!=12)
-		{
-		    cout<<hr;
-		}
-		else if(hr==12)
-		{
-		    cout<<"00";
-		}
-		else
-		{
-		    cout<<"Invalid input"<<endl;
-		}
-	}
-	else if(time.compare(5,6,"PM") == 0)
-	{
-	    if(hr!=12)
-	   	    cout<<hr+12;
-	   	else if(hr==12)
-	   	    cout<<hr;
-	   	else
-	   	    cout<<"Invalid input"<<endl;
+	string strOut;
+    string strHour = strTime.substr(0,2);    
+	
+	if(0 == strTime.compare(5, 2, "PM"))
+	{		
+        // Handle for 12:MMPM	
+        if(0 != strTime.compare(0, 2,"12"))
+        {
+		    int Hour = ::stoi(strHour) + 12;
+		    strHour = ::to_string(Hour);		
+        }
 	}
 	else
 	{
-	    	cout<<"Invalid input"<<endl;
+        // Handle for 12:MMAM
+		if(0 == strTime.compare(0,2,"12"))
+            strHour = "00";
 	}
-	
-	for(i=2;i<5;i++)
-	{
-       	cout<<time[i];    
-    }
-	cout<<" hrs"<<endl;    
+    strOut = strHour+strTime.substr(2,3);		        
+    
+	cout<<strOut<<endl;	
 	return 0;
 }
 
