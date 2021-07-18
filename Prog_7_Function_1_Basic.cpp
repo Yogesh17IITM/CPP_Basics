@@ -10,7 +10,7 @@
 using namespace std;
 
 // Function Prototype
-int fact(int iNum);
+long unsigned int fact(int iNum);
 
 int main()
 {
@@ -23,9 +23,9 @@ int main()
 }
 
 // Function Definition
-int fact(int iNum)
+long unsigned int fact(int iNum)
 {
-	int res = 1;
+	long unsigned int res = 1;
     while(iNum > 0)
     {
         res = res * iNum;
