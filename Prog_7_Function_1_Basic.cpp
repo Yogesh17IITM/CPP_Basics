@@ -10,7 +10,7 @@
 using namespace std;
 
 // Function Prototype
-int fact(int x);
+int fact(int iNum);
 
 int main()
 {
