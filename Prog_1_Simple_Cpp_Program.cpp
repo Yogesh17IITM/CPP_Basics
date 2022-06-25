@@ -12,7 +12,6 @@ using namespace std;
 string ConvertTime_12To24Hrs(const string &iStrTimeNow)
 {
     string strHour_12 = iStrTimeNow.substr(0, 2);
-    string strMin = iStrTimeNow.substr(3, 2);
 
     // Check is AM?
     string strHour_24 = "";
