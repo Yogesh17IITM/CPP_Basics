@@ -33,7 +33,7 @@ string EncryptString(const string &iStr, int iSftIdx)
         // Determine the start index based on the case (upper/lower)
         int Start_Idx = (::isupper(iCh)) ? (int)'A' : (int)'a'; // For upper 'A' -> 65 and for lower 'a' -> 97
 
-        // Calculate the new idx (value should be cyclic between 0 to 26)
+        // Calculate the new idx (New_Idx-Start_idx -> should be cyclic between 0 to 26)
         int New_Idx = ((int)iCh + iSftIdx - Start_Idx) % 26 + Start_Idx;
 
         // Cast the new index interger value into char type
