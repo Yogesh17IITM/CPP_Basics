@@ -3,60 +3,60 @@
 
     Input1 : "Hello World"
     Input2 : " How are you?"
-    Todo: Concatenate two strings and find the first non-repeating char
-    
+
+    Assumptions:
+    - Assuming case-insensitive
+    - only letters are considered (ignore numbers/symbols)
+
     Output: d
-    Explanation: 
+    Explanation:
         Unique characters are: d, a, y, u
         First Uniq Charac: d
 */
 
-#include<iostream>
-#include<map>
-#include<vector>
+#include <iostream>
+#include <map>
+#include <vector>
 using namespace std;
 
 char FirstUniqChar(string str1, string str2)
 {
-    vector<char> chArr;
+    string str = str1 + str2;
 
-    // Lambda Expression for push into vector
-    auto PushInto = [&](string iStr)
+    // 1. Convert all characters to lower-case
+    for (auto &iCh : str) // O(str.length())
+        iCh = ::tolower(iCh);
+
+    // 2. Convert map b/w character and its count
+    map<char, int> mCharCount;
+
+    // Initialize map
+    for (auto &iCh : str) // O(str.length())
     {
-        for (auto& iCh : iStr)
-        {
-            // convert all char into either upper or lower case
-            iCh = ::tolower(iCh);
-            chArr.push_back(iCh);
-        }
-    };
+        // consider only letters (ignore numbers or symbols etc)
+        if (::isalpha(iCh))
+            mCharCount[iCh] = 0;
+    }
 
-    PushInto(str1);
-    PushInto(str2);
-
-    // Use map to count the repetition of a char
-    map<char, int> chMap;       // Elements stored are sorted by default.
-    for (auto& iCh : chArr)
-        chMap[iCh]++;
-
-    // Store only unique Char
-    vector<char> UniqChar;
-    for (auto& iChMap : chMap)
-        if (1 == iChMap.second)
-            UniqChar.push_back(iChMap.first);
-
-    // Find the first uniq char from the given string
-    char FirstUniqChar = ' ';
-    for (auto& iCh : chArr)
+    // 3. Increment Counter for each letter
+    for (auto &iCh : str) // O(str.length())
     {
-        auto pos = find(UniqChar.begin(), UniqChar.end(), iCh);
-        if (pos != UniqChar.end())
+        if (::isalpha(iCh))
+            mCharCount[iCh] += 1;
+    }
+
+    // 4. Find the first uniq character (if the count == 1, then it is unique)
+    char oFirstUniqChar;
+    for (auto &iCh : str) // O(str.length())
+    {
+        if (::isalpha(iCh) && (1 == mCharCount[iCh]))
         {
-            FirstUniqChar = iCh;
-            break;
+            oFirstUniqChar = iCh;
+            break; // Break the loop once found.
         }
     }
-    return FirstUniqChar;
+
+    return oFirstUniqChar;
 }
 
 int main()
@@ -66,5 +66,5 @@ int main()
 
     cout << FirstUniqChar(str1, str2) << endl;
 
-	return 0;
+    return 0;
 }
