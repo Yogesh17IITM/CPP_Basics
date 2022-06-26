@@ -22,94 +22,117 @@ Sample Input and Output:
 
     Explanation:
         "anacell" is occuring in 3 different reviews and "betacellular" is only occuring in 1 review.
-        Since k=2, first 2 popular keywords printed. 
+        Since k=2, first 2 popular keywords printed.
 */
 
-#include<iostream>
-#include<sstream>
-#include<vector>
-#include<map>
-#include<algorithm>
+#include <iostream>
+#include <sstream>
+#include <vector>
+#include <map>
+#include <algorithm>
+#include <string>
 using namespace std;
 
-bool Compare(pair<string, int> & iKeyA, pair<string, int>& iKeyB)
+bool Compare(pair<string, int> &iKeyA, pair<string, int> &iKeyB)
 {
-    bool oRes = false;
-    if (iKeyA.second > iKeyB.second)
+    bool bIsGreater = false;
+
+    // Compare the count
+    if (iKeyA.second > iKeyB.second) // High-to-low
     {
-        oRes = true;
+        bIsGreater = true;
     }
-    return oRes;
+    else if (iKeyA.second == iKeyB.second)
+    {
+        // Count is equal. Sort alphabetically.
+        string str1 = iKeyA.first;
+        string str2 = iKeyB.first;
+        if (str1.compare(str2) < 0) // low-to high
+            bIsGreater = true;
+    }
+    else
+    {
+        // do-nothing
+    }
+
+    return bIsGreater;
+}
+
+bool IsKeyExists(string iWord, vector<string> iKeyWords)
+{
+    bool bIsExists = false;
+
+    // Change the logic if the number of keywords are huge or dynamic
+    if ((iWord == iKeyWords[0]) ||
+        (iWord == iKeyWords[1]) ||
+        (iWord == iKeyWords[2]))
+        bIsExists = true;
+
+    return bIsExists;
 }
 
 vector<string> FindPopularKeyWords(vector<string> iStrReview,
                                    vector<string> iKeyWords, int k)
 {
-    vector<string> oStrKeyWords;
-
-    // 1) Convert all characters into lower case.
-    //    replace all special characters by space.
-    for (auto& iStr : iStrReview)
+    // 1. Concatenate all the strings
+    string strConc;
+    for (auto &iCurrStr : iStrReview)
     {
-        for (auto& iCh : iStr)
+        for (auto &iCh : iCurrStr)
         {
-            iCh = ::tolower(iCh);
-        }
-    }
-
-    map<string, int> mapKeyVal;
-
-    // 2) Find the popular Key words
-    for (auto& iStr : iStrReview)    
-    {        
-        for (auto& iKey : iKeyWords)
-        {
-            auto pos = 0;
-
-            // Check if starting word is Keyword
-            if (iKey == iStr.substr(0, iKey.length()))
-            {                
-                mapKeyVal[iKey]++;
-                pos = iKey.length() + 1;
-            }                
-
-            // Check the popularity of keywords
-            while ((pos = iStr.find(iKey, pos)) &&
-                   (pos != string::npos) )
+            // Include only letters and spaces (ignore special characters, symbols etc.,)
+            if (::isalnum(iCh) || (' ' == iCh))
             {
-                mapKeyVal[iKey]++;
-                pos += iKey.length() + 1;
-            }            
+                strConc += ::tolower(iCh);
+            }
         }
     }
-     
-    // 3) Sort KeyWords based on the popularity level
-    vector<pair<string, int>> KeyVal;
-    for (auto& iKey : mapKeyVal)
-        KeyVal.push_back(make_pair(iKey.first, iKey.second));
-    sort(KeyVal.begin(), KeyVal.end(), Compare);
 
-    // 4) Extract top 'k' popular words
-    for (int idx = 0; ((idx < KeyVal.size()) && (idx < k)); idx++)    
-        oStrKeyWords.push_back(KeyVal[idx].first);    
+    // 2) Create Map b/w KeyWords and its count
+    map<string, int> mKeyCount;
+    for (auto &iCurrKey : iKeyWords)
+        mKeyCount[iCurrKey] = 0; // Initialize to zero
+
+    // 3) Find the keywords and increment the counter
+    stringstream sstream(strConc);
+    string strWord;
+    while (getline(sstream, strWord, ' '))
+    {
+        // Check if the current word is listed in the popular keywords
+        if (IsKeyExists(strWord, iKeyWords))
+            mKeyCount[strWord] += 1;
+    }
+
+    // 4) Convert Map into Vector<pair>
+    vector<pair<string, int>> pairKeyCount;
+    for (auto &iMap : mKeyCount)
+        pairKeyCount.push_back(iMap);
+
+    // 5) Sort the keywords based on the count
+    sort(pairKeyCount.begin(), pairKeyCount.end(), Compare);
+
+    // 6) Append the top 'k' popular keywords
+    vector<string> oStrKeyWords;
+    for (int idx = 0; idx < k; idx++)
+        oStrKeyWords.push_back(pairKeyCount[idx].first);
 
     return oStrKeyWords;
 }
 
 int main()
 {
-    vector<string> strReview = { "Anacell provides the best services in the city",
-                                 "betacellular has awesome services",
-                                 "Best services provided by anacell, everyone should use anacell" };
+    vector<string> strReview = {"Anacell provides the best services in the city",
+                                "betacellular has awesome services",
+                                "Best services provided by anacell, everyone should use anacell"};
 
-    vector<string> strKeyWords = { "anacell", "cetracular", "betacellular" };
+    vector<string> strKeyWords = {"anacell", "cetracular", "betacellular"};
     int k = 2;
 
     vector<string> strPopularKeyWords = FindPopularKeyWords(strReview, strKeyWords, k);
 
     cout << "[";
-    for (auto& iKeyWords : strPopularKeyWords)
-        cout <<"\""<< iKeyWords << "\", ";
+    for (auto &iKeyWords : strPopularKeyWords)
+        cout << "\"" << iKeyWords << "\", ";
     cout << "]" << endl;
 
     return 0;
