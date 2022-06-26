@@ -21,7 +21,7 @@ Sample Output:
      "z24 pillow bed fan car",
      "ab1 pillow bed fan towel",
      "m13 23 23 34 46",
-     "h34 44 67 34 56"}     
+     "h34 44 67 34 56"}
 
 Explanation:
     String are sorted out lexicographically (alphabetical order).
@@ -29,37 +29,39 @@ Explanation:
     Numerics should be kept at the last in the ascending order.
 */
 
-#include<iostream>
-#include<vector>
-#include<string>
-#include<sstream>
-#include<algorithm>
+#include <iostream>
+#include <vector>
+#include <string>
+#include <sstream>
+#include <algorithm>
 
 using namespace std;
 
-bool Compare(pair<string, string> & keyVal_A, pair<string, string> & keyVal_B)
+bool Compare(pair<string, string> &keyVal_A, pair<string, string> &keyVal_B)
 {
     bool oRet = false;
 
-    string & strA = keyVal_A.second;
-    string & strB = keyVal_B.second;
+    // Extract the 'Value'
+    string &strA = keyVal_A.second;
+    string &strB = keyVal_B.second;
 
+    // If one of the value contains digit (NOT BOTH)
     if ((isdigit(strA[1]) && isalpha(strB[1])) ||
-        (isdigit(strB[1]) && isalpha(strA[1]) ) )
+        (isdigit(strB[1]) && isalpha(strA[1])))
     {
-        oRet = (strA[1] > strB[1]) ? true : false;
+        oRet = (strA.compare(strB) > 0) ? true : false; // Keep the numbers with low priority compared to string
     }
     else
-    {   
+    {
         int x = strA.compare(strB);
         if (x != 0)
         {
-            oRet = (x < 0)?  true : false;
+            oRet = (x < 0) ? true : false;
         }
         else
-            oRet = true;        
+            oRet = true;
     }
-    
+
     return oRet;
 }
 
@@ -69,11 +71,11 @@ vector<string> SortStringLexicographically(vector<string> iListOfStrings)
 
     vector<pair<string, string>> KeyVal;
 
-    // 1) Separate out key and value 
+    // 1) Separate out key and value
     // 2) Sort string lexi. acc. to value
     // 3) Pair Key with value
-    for(auto & iStrLine: iListOfStrings)
-    { 
+    for (auto &iStrLine : iListOfStrings)
+    {
         string word;
         stringstream sstream(iStrLine);
         while (getline(sstream, word, ' '))
@@ -82,10 +84,10 @@ vector<string> SortStringLexicographically(vector<string> iListOfStrings)
             break;
         }
     }
-           
+
     sort(KeyVal.begin(), KeyVal.end(), Compare);
 
-    for (auto& iKeyVal : KeyVal)
+    for (auto &iKeyVal : KeyVal)
     {
         string str = iKeyVal.first + iKeyVal.second;
         oSortedStr.push_back(str);
@@ -96,15 +98,15 @@ vector<string> SortStringLexicographically(vector<string> iListOfStrings)
 
 int main()
 {
-    vector<string> iStr = { "gb1 pillow bed fan towel",
-                            "ah2 goat cow tiger lion",
-                            "h34 44 67 34 56",
-                            "m13 23 23 34 46",
-                            "z24 pillow bed fan car",
-                            "yr1 love friend enemy brother" };                            
+    vector<string> iStr = {"gb1 pillow bed fan towel",
+                           "ah2 goat cow tiger lion",
+                           "h34 44 67 34 56",
+                           "m13 23 23 34 46",
+                           "z24 pillow bed fan car",
+                           "yr1 love friend enemy brother"};
 
     vector<string> SortedStr = SortStringLexicographically(iStr);
-    for (auto& iStrLine : SortedStr)
+    for (auto &iStrLine : SortedStr)
         cout << iStrLine << endl;
 
     return 0;
