@@ -1,5 +1,5 @@
 #include <iostream>
-#include<vector>
+#include <vector>
 #include <set>
 using namespace std;
 
@@ -7,14 +7,14 @@ string RemoveDuplicates(string iStr)
 {
     string oStr = "";
     vector<char> chList;
-    for (auto& ich : iStr)
+    for (auto &ich : iStr)
         chList.push_back(ich);
 
-    // Set: Stores only unique characters
+    // Set: Stores only unique characters (which is sorted alphabetically)
     set<char> UniqueStr(chList.begin(), chList.end());
-    for (auto& iCh : UniqueStr)
+    for (auto &iCh : UniqueStr)
         oStr += iCh;
-       
+
     return oStr;
 }
 
