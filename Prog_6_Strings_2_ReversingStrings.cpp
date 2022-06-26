@@ -10,7 +10,7 @@ using namespace std;
 string ReverseString(string iString)
 {
     reverse(iString.begin(), iString.end());
-    iString.append(" ");
+    iString.append(" "); // adding dummy space at the end
 
     auto StartPos = 0;
     auto EndPos = 0;
@@ -20,12 +20,12 @@ string ReverseString(string iString)
         StartPos++;
 
     while ((EndPos = iString.find(" ", StartPos)) &&
-           (EndPos != string::npos))
+           (EndPos != string::npos)) // every word is found and traversed with the help of the delimiter ' '
     {
         reverse(iString.begin() + StartPos, iString.begin() + EndPos);
         StartPos = EndPos + 1;
     }
-    iString.erase(iString.end() - 1, iString.end());
+    iString.erase(iString.end() - 1, iString.end()); // removing dummy space at the end
 
     return iString;
 }
@@ -60,7 +60,7 @@ string ReverseString(string iStr)
 void PrintInReverse(string iStr)
 {
     // 1) Reverse all the chars
-    string strRev = ReverseString((" "+iStr));
+    string strRev = ReverseString((" "+iStr));  // adding dummy space at the beginning of the sentence (before reversing).
 
     // 2) Find spaces and reverse words
     string tempStr="";
@@ -87,7 +87,7 @@ void PrintInReverse(string iStr)
         }
     }
 
-    oRevString = oRevString.substr(0, oRevString.length()-1);
+    oRevString = oRevString.substr(0, oRevString.length()-1);   (removing the dummy space at the end)
     cout<<oRevString<<endl;
 }
 
