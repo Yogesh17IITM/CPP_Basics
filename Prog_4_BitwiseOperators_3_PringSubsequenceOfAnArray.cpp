@@ -1,3 +1,24 @@
+/*
+Objective:
+    1) To demonstrate how to use bitwise operator for calc. permutations
+
+Example:
+    Print all the subsequence of a given string. Eg., abc
+
+    Subsequences are:
+        a
+        ab
+        abc
+        ac
+        b
+        bc
+        c
+
+Key Topics:
+    1) AND operator
+    2) Left-shifting
+*/
+
 #include <iostream>
 #include <vector>
 #include <string>
