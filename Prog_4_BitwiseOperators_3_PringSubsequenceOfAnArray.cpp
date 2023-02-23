@@ -32,10 +32,10 @@ vector<string> PrintAllSubsequences(const string &iStr)
 
     int nPermutations = 1 << iStr.length();
 
-    for (int iPerm = 0; iPerm < nPermutations; iPerm++)
+    for (int iPerm = 1; iPerm < nPermutations; iPerm++) // O(nPermutations)
     {
         string subStr = "";
-        for (int idx = 0; idx < iStr.length(); idx++)
+        for (int idx = 0; idx < iStr.length(); idx++) // O(iStrlength())
         {
             if (iPerm & (1 << idx))
                 subStr += iStr[idx];
