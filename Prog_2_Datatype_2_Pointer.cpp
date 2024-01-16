@@ -19,7 +19,22 @@ Key Topics:
 using namespace std;
 
 // Function Prototype or Method declaration
-int welcome(const string &iStrName);
+// int welcome(const string &iStrName);     // simple function
+
+// Template function (to handle all datas)
+template <typename T>
+void welcome(T &iData)
+{
+    cout << "[Simple Data] Hello " << iData << endl;
+}
+
+// Template function (to handle all pointer datas)
+template <typename T>
+void welcome(T *iPtrData)
+{
+    if (nullptr != iPtrData)
+        cout << "[Pointer Data] Hello " << *iPtrData << " address: " << iPtrData << endl;
+}
 
 /* Main Function */
 int main()
@@ -50,17 +65,17 @@ int main()
     // string *pStrName = &strName; // Not allowed. Cannot assign const data to a pointer type.
     //  *pConstStrName = "Hello";				// Not allowed to modify data
     cout << "case 2.1 : ";
-    welcome(*pConstStrName);
+    welcome(pConstStrName);
 
     pConstStrName = &strUser;
     // *pConstStrName = "Ram";					// Not allowed to modify data
     cout << "case 2.2 : ";
-    welcome(*pConstStrName);
+    welcome(pConstStrName);
 
     // 3. Assigning data to const pointer
     string *const ConstPtrStrName = &strUser;
     cout << "case 3 : ";
-    welcome(*ConstPtrStrName);
+    welcome(ConstPtrStrName);
     // ConstPtrStrName = &strName;				// Changing Pointee NOT allowed
 
     // 4. Assigning const data to const pointer
@@ -68,14 +83,14 @@ int main()
     //*ConstPtrConstStrName = "hai";				// Data Modification NOT allowed
     // ConstPtrConstStrName = &strName;				// changing pointee NOT allowed
     cout << "case 4 : ";
-    welcome(*ConstPtrConstStrName);
+    welcome(ConstPtrConstStrName);
 
     return 0;
 }
 
-/* Function Definition */
-int welcome(const string &iStrName)
-{
-    cout << "Welcome " << iStrName << endl;
-    return 0;
-}
+/* Simple Function Definition */
+// int welcome(const string &iStrName)
+// {
+//     cout << "Welcome " << iStrName << endl;
+//     return 0;
+// }
