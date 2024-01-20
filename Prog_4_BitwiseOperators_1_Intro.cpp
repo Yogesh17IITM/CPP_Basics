@@ -3,7 +3,7 @@ Objective:
     To demonstrate bitwise operations
 
 Example:
-    String comparision using bitwise opeation (XOR)
+    String comparision using bitwise operation (XOR)
 
 Key Topics:
     1) Char array, Pointers
@@ -18,7 +18,8 @@ Key Topics:
 using namespace std;
 
 // Function declaration
-void CompareChar(char *iChA, char *iChB);
+// void CompareChar(char *iChA, char *iChB); // could be 'bad' function signature as it is unclear whether the input should be array or a pointer of some char variable
+void CompareChar(char iChA[], char iChB[]); // suitable one as it clearly says the input is going to be array
 
 /* Main program */
 int main()
@@ -49,25 +50,21 @@ int main()
 }
 
 // Function definition
-void CompareChar(char *iChA, char *iChB)
+void CompareChar(char iChA[], char iChB[])
 {
-    bool bIsSame = true;
-    while ((*iChA != '\0') && (*iChB != '\0') && bIsSame == true)
+    while ((*iChA != '\0') && (*iChB != '\0'))
     {
-        if (0 != (*iChA ^ *iChB))
-            bIsSame = false;
-
+        if ((*iChA ^ *iChB) != 0) // 'XOR' operation will give bit value 1 if the bits are different
+        {
+            break;
+        }
+        // proceed with comparision of next character
         iChA++;
         iChB++;
     }
 
-    // check if next char still exists in either of char array
-    if (*iChA != '\0' || *iChB != '\0')
-        bIsSame = false;
-
-    // Display results
-    if (bIsSame)
-        cout << "Strings are equal" << endl;
+    if ((*iChA == '\0') && (*iChB == '\0')) // Condition satisfies only if both char arrays are same
+        cout << "Both strings are equal" << endl;
     else
-        cout << "Strings are NOT equal" << endl;
+        cout << "Both strings are NOT equal" << endl;
 }
