@@ -1,3 +1,10 @@
+/*
+    TOPIC: remove duplicate characters in a string
+
+    Input: Hello World hai
+    Output: adehilorw
+*/
+
 #include <iostream>
 #include <vector>
 #include <set>
@@ -8,10 +15,13 @@ string RemoveDuplicates(string iStr)
     string oStr = "";
     vector<char> chList;
     for (auto &ich : iStr)
-        chList.push_back(ich);
+    {
+        if (::isalpha(ich))
+            chList.push_back(::tolower(ich)); // convert always to lower-case
+    }
 
     // Set: Stores only unique characters (which is sorted alphabetically)
-    set<char> UniqueStr(chList.begin(), chList.end());
+    set<char> UniqueStr(chList.begin(), chList.end()); // ignore spaces and keep only unique data
     for (auto &iCh : UniqueStr)
         oStr += iCh;
 
@@ -20,6 +30,6 @@ string RemoveDuplicates(string iStr)
 
 int main()
 {
-    string str = "GeekForGeeks";
+    string str = "Hello World hai";
     cout << "Uniq Str: " << RemoveDuplicates(str) << endl;
 }
