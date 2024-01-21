@@ -19,10 +19,7 @@ Output:
 #include <iostream>
 using namespace std;
 
-// Spcify the Shift Index (i.e., No. of positions to be shifted)
-#define SHIFT_IDX 1
-
-string EncryptedString(const string &str, int idx)
+string EncryptedString(const string &str, const int idx)
 {
     string ostr = "";
     try
@@ -61,6 +58,7 @@ string EncryptedString(const string &str, int idx)
             cout << " \n[WARNING] Shift index is zero" << endl;
         else
         {
+            // do-nothing
         }
     }
 
