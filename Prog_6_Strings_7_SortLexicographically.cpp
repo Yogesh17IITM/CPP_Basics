@@ -32,68 +32,58 @@ Explanation:
 #include <iostream>
 #include <vector>
 #include <string>
-#include <sstream>
 #include <algorithm>
 
 using namespace std;
 
-bool Compare(pair<string, string> &keyVal_A, pair<string, string> &keyVal_B)
+vector<string> SortStringLexicographically(vector<string> str)
 {
-    bool oRet = false;
+    vector<string> ostr;
+    vector<pair<string, string>> mkeyval;
 
-    // Extract the 'Value'
-    string &strA = keyVal_A.second;
-    string &strB = keyVal_B.second;
+    // util - lambda function for comparing strings
+    auto compare = [](pair<string, string> &pairA, pair<string, string> &pairB) -> bool
+    {
+        bool ret = false;
 
-    // If one of the value contains digit (NOT BOTH)
-    if ((isdigit(strA[1]) && isalpha(strB[1])) ||
-        (isdigit(strB[1]) && isalpha(strA[1])))
-    {
-        oRet = (strA.compare(strB) > 0) ? true : false; // Keep the numbers with low priority compared to string
-    }
-    else
-    {
-        int x = strA.compare(strB);
-        if (x != 0)
+        // sort alphabetically if it is cjaracter
+        if (::isalpha(pairA.second[0]) && ::isalpha(pairB.second[0]))
         {
-            oRet = (x < 0) ? true : false;
+            ret = (pairA.second.compare(pairB.second) <= 0); // '=' : to return true if both are equal
         }
+        // sort ascending if it is number
+        else if (::isdigit(pairA.second[0]) && ::isdigit(pairB.second[0]))
+        {
+            ret = (pairA.second.compare(pairB.second) <= 0);
+        }
+        // sort letters and then numerics if it is mixed
         else
-            oRet = true;
-    }
-
-    return oRet;
-}
-
-vector<string> SortStringLexicographically(vector<string> iListOfStrings)
-{
-    vector<string> oSortedStr;
-
-    vector<pair<string, string>> KeyVal;
-
-    // 1) Separate out key and value
-    // 2) Sort string lexi. acc. to value
-    // 3) Pair Key with value
-    for (auto &iStrLine : iListOfStrings)
-    {
-        string word;
-        stringstream sstream(iStrLine);
-        while (getline(sstream, word, ' '))
         {
-            KeyVal.push_back(make_pair(word, iStrLine.substr(word.length())));
-            break;
+            ret = (::isalpha(pairA.second[0]) && ::isdigit(pairB.second[0]));
         }
-    }
 
-    sort(KeyVal.begin(), KeyVal.end(), Compare);
+        return ret;
+    };
 
-    for (auto &iKeyVal : KeyVal)
+    // iterate over the entities in vectors
+    for (auto &istr : str)
     {
-        string str = iKeyVal.first + iKeyVal.second;
-        oSortedStr.push_back(str);
+        auto pos = istr.find(" ", 0);
+        string key = istr.substr(0, pos + 1);             // get key (along with space at end)
+        string val = istr.substr(pos + 1, istr.length()); // get value
+
+        // Form a key-val pair
+        mkeyval.push_back(make_pair(key, val));
     }
 
-    return oSortedStr;
+    // sort lexicographically
+    sort(mkeyval.begin(), mkeyval.end(), compare);
+
+    // combine key and corresponding values
+    for (auto &ikeyval : mkeyval)
+        ostr.push_back(ikeyval.first + ikeyval.second);
+
+    return ostr;
 }
 
 int main()
