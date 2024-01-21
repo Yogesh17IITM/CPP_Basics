@@ -16,47 +16,31 @@
 
 #include <iostream>
 #include <map>
-#include <vector>
 using namespace std;
 
-char FirstUniqChar(string str1, string str2)
+char FirstUniqChar(const string &str)
 {
-    string str = str1 + str2;
+    map<char, int> mCh;
 
-    // 1. Convert all characters to lower-case
-    for (auto &iCh : str) // O(str.length())
-        iCh = ::tolower(iCh);
-
-    // 2. Convert map b/w character and its count
-    map<char, int> mCharCount;
-
-    // Initialize map
-    for (auto &iCh : str) // O(str.length())
+    // 1. Find the char, convert into lower case and maintain a count
+    for (auto &ich : str) // O(str.length())
     {
-        // consider only letters (ignore numbers or symbols etc)
-        if (::isalpha(iCh))
-            mCharCount[iCh] = 0;
+        if (::isalpha(ich))
+            mCh[::tolower(ich)] += 1;
     }
 
-    // 3. Increment Counter for each letter
-    for (auto &iCh : str) // O(str.length())
+    // Iterate over char in string and check if the count is 1
+    char uniqChar;
+    for (auto &ich : str)
     {
-        if (::isalpha(iCh))
-            mCharCount[iCh] += 1;
-    }
-
-    // 4. Find the first uniq character (if the count == 1, then it is unique)
-    char oFirstUniqChar;
-    for (auto &iCh : str) // O(str.length())
-    {
-        if (::isalpha(iCh) && (1 == mCharCount[iCh]))
+        if ((::isalpha(ich)) && (mCh[::tolower(ich)] == 1))
         {
-            oFirstUniqChar = iCh;
-            break; // Break the loop once found.
+            uniqChar = ich;
+            break; // break it once found
         }
     }
 
-    return oFirstUniqChar;
+    return uniqChar;
 }
 
 int main()
@@ -64,7 +48,7 @@ int main()
     string str1 = "Hello World";
     string str2 = " How are you?";
 
-    cout << FirstUniqChar(str1, str2) << endl;
+    cout << FirstUniqChar((str1 + str2)) << endl;
 
     return 0;
 }
