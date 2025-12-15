@@ -13,15 +13,14 @@ using namespace std;
 string RemoveDuplicates(string iStr)
 {
     string oStr = "";
-    vector<char> chList;
     for (auto &ich : iStr)
     {
         if (::isalpha(ich))
-            chList.push_back(::tolower(ich)); // convert always to lower-case
+            ich = ::tolower(ich); // convert always to lower-case
     }
 
     // Set: Stores only unique characters (which is sorted alphabetically)
-    set<char> UniqueStr(chList.begin(), chList.end()); // ignore spaces and keep only unique data
+    set<char> UniqueStr(iStr.begin(), iStr.end()); // ignore spaces and keep only unique data
     for (auto &iCh : UniqueStr)
         oStr += iCh;
 
